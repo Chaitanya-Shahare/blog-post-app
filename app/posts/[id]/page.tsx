@@ -26,6 +26,20 @@ export default async function Post({ params }: { params: { id: string } }) {
       3000
     ),
   ]);
+
+  if (responseArr.some((res) => res.status === 404)) {
+    return (
+      <div className="p-2 sm:p-4">
+        <Link href="/posts" className="mb-4 underline-offset-4 underline">
+          &lt; Go back to posts
+        </Link>
+        <div className="flex w-full h-[80vh] justify-center items-center">
+          <h1 className="text-4xl font-bold">Post not found.</h1>
+        </div>
+      </div>
+    );
+  }
+
   const data = await Promise.all(responseArr.map((res) => res.json()));
 
   const [postData, commentsData] = data;

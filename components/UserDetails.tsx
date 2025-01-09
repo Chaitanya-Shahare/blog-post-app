@@ -5,7 +5,7 @@ interface UserDetailsProps {
   userData: IUser;
 }
 
-interface IUser {
+export interface IUser {
   id: number;
   name: string;
   username: string;

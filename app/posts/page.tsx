@@ -12,7 +12,7 @@ export default async function Posts() {
   try {
     const res = await fetch("https://jsonplaceholder.typicode.com/posts");
     const data = await res.json();
-    console.log(data);
+
     return (
       <div className="p-2 sm:p-4">
         <h1 className="mb-2 sm:mb-4 text-3xl sm:text-4xl font-bold">Posts</h1>

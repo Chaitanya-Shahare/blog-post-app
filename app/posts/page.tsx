@@ -9,27 +9,28 @@ export interface IPost {
 }
 
 export default async function Posts() {
-  const res = await fetch("https://jsonplaceholder.typicode.com/posts");
-  const data = await res.json();
-  console.log(data);
-  return (
-    <div className="p-2 sm:p-4">
-      <h1 className="mb-2 sm:mb-4 text-3xl sm:text-4xl font-bold">Posts</h1>
-      <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {/* {isLoading
-          ? Array.from({ length: 8 }).map((_, i) => <CardSkeleton key={i} />)
-          : data?.map((post: IPost) => <Card key={post.id} {...post} />)} */}
+  try {
+    const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+    const data = await res.json();
+    console.log(data);
+    return (
+      <div className="p-2 sm:p-4">
+        <h1 className="mb-2 sm:mb-4 text-3xl sm:text-4xl font-bold">Posts</h1>
+        <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {data?.map((post: IPost) => (
+            <Card key={post.id} {...post} />
+          ))}
 
-        {data?.map((post: IPost) => (
-          <Card key={post.id} {...post} />
-        ))}
-
-        {Array.from({ length: 8 }).map((_, i) => (
-          <CardSkeleton key={i} />
-        ))}
-      </ul>
-    </div>
-  );
+          {Array.from({ length: 8 }).map((_, i) => (
+            <CardSkeleton key={i} />
+          ))}
+        </ul>
+      </div>
+    );
+  } catch (err) {
+    console.error(err);
+    throw new Error("Failed to fetch data");
+  }
 }
 
 export const metadata: Metadata = {
